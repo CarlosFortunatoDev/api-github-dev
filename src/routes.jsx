@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
 
-export function AppRoutes() {
+export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
