@@ -1,11 +1,12 @@
 import React from 'react'
 
 import { Container, Sidebar, Main } from './styles'
+import Profile from './Profile'
 
 function Repositories() {
   return (
     <Container>
-      <Sidebar>Sidebar</Sidebar>
+      <Sidebar><Profile /></Sidebar>
       <Main>Main</Main>
     </Container>
   )

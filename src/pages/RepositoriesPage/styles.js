@@ -10,7 +10,7 @@ export const Container = styled.main`
 `
 export const Sidebar = styled.aside`
   background: ${(props => props.theme.colors.background)};
-  min-width: 40rem;
+  min-width: 20rem;
   max-height: 100vh;
   overflow-y: hidden;
 `
