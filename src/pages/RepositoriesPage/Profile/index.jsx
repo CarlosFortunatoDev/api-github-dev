@@ -21,7 +21,7 @@ function Profile() {
         <Data><MdLocationCity size={20} />São José dos Campos</Data>
         <Data>
           <MdLink size={20} />
-          <a href="https://embraer.com/">Embraer</a>
+          <a href="https://embraer.com/" target='_blank' rel="noreferrer">Embraer</a>
         </Data>
       </Inner>
     </Container>
