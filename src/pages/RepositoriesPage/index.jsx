@@ -1,74 +1,41 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
-import { Container, Sidebar, Main } from './styles'
+import { Container, Sidebar, Main, Loading } from './styles'
 import Profile from './Profile'
 import Filter from './Filter'
 import Repositories from './Repositories'
-import { getLangsFrom } from '../../services/api'
+import { getUser, getRepos, getLangsFrom } from '../../services/api'
 
 function RepositoriesPage() {
+  const [user, setUser] = useState();
+  const [repositories, setRepositories] = useState();
+  const [languages, setLanguages] = useState();
   const [currentLanguage, setCurrentLanguage] = useState();
+  const [loading, setLoading] = useState(true);
 
-  const user = {
-    login: "CarlosFortunatoDev",
-    name: "Carlos Fortunato",
-    avatar_url: "https://avatars.githubusercontent.com/u/125428271?v=4",
-    followers: 4,
-    following: 14,
-    company: 'UNIP',
-    blog: "https://carlosfortunatodev.github.io/Portfolio-react/",
-    location: "São José dos Campos - SP",
-  }
+  useEffect(() => {
+    const loadData = async() => {
+      const [userResponse, repositoriesResponse] = await Promise.all([
+        getUser('CarlosFortunatoDev'),
+        getRepos('CarlosFortunatoDev')
+      ])
+      setUser(userResponse.data);
+      setRepositories(repositoriesResponse.data);
+      setLanguages(getLangsFrom(repositoriesResponse.data));
 
-  const repositories = [
-    {
-      id: '1',
-      name: 'Password-Generator',
-      description: 'Gerador de senhas automático com níveis de segurança. Desenvolvido com HTML5, CSS3 e JavaScript Vanilla.',
-      html_url: "https://github.com/CarlosFortunatoDev/Password-Generator",
-      language: "JavaScript"
-    },
-    {
-      id: '2',
-      name: 'Repo 2',
-      description: 'Description',
-      html_url: "https://github.com/CarlosFortunatoDev/Password-Generator",
-      language: "JavaScript"
-    },
-    {
-      id: '3',
-      name: 'Repo 3',
-      description: 'Description',
-      html_url: "https://github.com/CarlosFortunatoDev/Password-Generator",
-      language: "TypeScript"
-    },
-    {
-      id: '4',
-      name: 'Repo 4',
-      description: 'Description',
-      html_url: "https://github.com/CarlosFortunatoDev/Password-Generator",
-      language: "PHP"
-    },
-    {
-      id: '5',
-      name: 'Repo 5',
-      description: 'Description',
-      html_url: "https://github.com/CarlosFortunatoDev/Password-Generator",
-      language: "Java"
-    },
-    {
-      id: '6',
-      name: 'Repo 6',
-      description: 'Description',
-      html_url: "https://github.com/CarlosFortunatoDev/Password-Generator",
-      language: "Ruby"
-    },
-  ]
+      setLoading(false);
+    }
 
-  const languages = getLangsFrom(repositories)
+    loadData()
+  }, [])
+
 
   const onFilterClick = (language) => {
     setCurrentLanguage(language);
+  }
+
+  if (loading){
+    return <Loading>Carregando...</Loading>
   }
 
   return (
