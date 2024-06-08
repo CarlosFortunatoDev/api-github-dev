@@ -48,8 +48,8 @@ export const Button = styled(Link)`
   justify-content: center;
 
   background: transparent;
-  width: auto;
-  height: auto;
+  width: 80px;
+  height: 64px;
   border: 3px solid ${(props) => props.theme.colors.text};
   transition: background 0.3s;
 
